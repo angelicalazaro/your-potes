@@ -2,8 +2,16 @@
 
 require_once "./config.php";
 
-$nameErr = $descriptionErr = $imgErr = "";
-$name = $description = 
+$nameErr = $descriptionErr = $imageErr = "";
+$name = $description = $image = "";
+
+if ($_SERVER["REQUEST_METHOD"] == $_POST) {
+    if (empty($_POST["name"])) {
+        $nameErr = "Introduit un nom"
+    } else {
+        $name = 
+    }
+}
 
 // https://tryphp.w3schools.com/showphp.php?filename=demo_form_validation_complete
 
