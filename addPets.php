@@ -1,19 +1,60 @@
 <?php
 
-require_once "./config.php";
+require_once "./connect_db.php";
+// initialisation des variables
+$nameErr = $descriptionErr = "" ;
+$name = $description = "";
 
-$nameErr = $descriptionErr = $imageErr = "";
-$name = $description = $image = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // RÉCUPÉRATION DONNÉES
+    // les variables avec _input sont initialisees avec la variable POST donc pas besoin de les appeler apres dans les conditions 
+    $name_input = $_POST["name"] ?? "";
+    $description_input = $_POST["description"] ?? "";
 
-if ($_SERVER["REQUEST_METHOD"] == $_POST) {
-    if (empty($_POST["name"])) {
-        $nameErr = "Introduit un nom"
+    if (empty($name_input)) {
+        $nameErr = "Introduit un nom, champ obligatoire";
     } else {
-        $name = 
+        $name = test_input($name_input);
+        // verifier d'autre facon
+        if (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
+            $nameErr = "Format invalide";
+        }
+    }
+    if (empty($description_input)) {
+        $descriptionErr = "Rentre une description valide s'il te plait";
+    } else {
+        $description = test_input($description_input);
+        // preg_match permet d'ajouter des accents et des caracteres speciaux // verifier d'autre facon
+        if (!preg_match("/^[a-zA-ZÀ-ÿ .,!?'-]*$/", $description)) {
+            $descriptionErr = "Format invalide";
+        }
+    }
+    // if (empty($_FILES["image"])) {
+    //     $imageErr = "Rentre une image valide s'il te plait";
+    // } else {
+    //     $image = test_input($_FILES["image"]);
+    // }
+
+    // si aucune erreur, insert en bdd :
+    if (empty($nameErr) && empty($descriptionErr)) {
+        // etablir connexion bdd :
+        try {
+            $pdo = connectDb();
+            $sql = "INSERT INTO pets (pet_name, description) VALUES (?, ?)";
+            $reqPreparee = $pdo->prepare($sql);
+            $result = $reqPreparee->execute([$name, $description]);
+            if ($result) {
+                header("location: index.php");
+                exit();
+            } else {
+                $nameErr = "Erreur lors de l'enregistrement";
+            }
+        } catch (PDOException $e) {
+            $nameErr = "Erreur de base de donnees";
+            echo $e->getMessage();
+        } 
     }
 }
-
-// https://tryphp.w3schools.com/showphp.php?filename=demo_form_validation_complete
 
 ?>
 
@@ -25,12 +66,13 @@ if ($_SERVER["REQUEST_METHOD"] == $_POST) {
     <title>Ajoute ton pote de 4 pattes !</title>
 </head>
 <body>
-    <h1>Ajoute ton pote de 4 pattes ICI</h1>
+    <h1>Ajoute ton pote aux 4 pattes ICI 🐶 🐱 🐰</h1>
     <form action="addPets.php" enctype="multipart/form-data" method="POST">
-        Quel est son nom : <input type="text" name="name"><br>
-        Comment tu lui decris ? <input type="text" name="description"><br>
-        Tu as des photos ? Vas y : <input type="file" name="image" accept="image/*">
-         <input type="submit">
+        Quel est son nom : <input type="text" name="name" required><br>
+        Comment tu lui decris ? <input type="text" name="description" required><br>
+        <!-- Tu as des photos ? Vas y : <input type="file" name="image" accept="image/*"> -->
+         <input name="button" type="submit">
     </form>
+    <p><a href="index.php">Retour a la liste de potes 🐶 🐱 🐰</a></p>
 </body>
 </html>

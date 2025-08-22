@@ -1,3 +1,14 @@
+<pre>
+<?php
+    require_once "./connect_db.php";
+    $sql = "SELECT * FROM pets";
+    $pdo = connectDb();
+    $resultPdoStatement = $pdo->query($sql, PDO::FETCH_ASSOC);
+    $pets = $resultPdoStatement->fetchAll();
+
+?>
+</pre>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +17,22 @@
     <title>Mes potes</title>
 </head>
 <body>
-    <h1></h1>
+    <h1>Bienvenue aux potes aux 4 pattes 🐶 🐱 🐰</h1>
+    <h2>Tous les potes</h2>
+    <?php
+        foreach($pets as $pet) { ?> 
+            <div>
+            <tr> 
+                <td><?=$pet['id'];?></td><br>
+                <td><?=$pet['pet_name'];?></td><br>
+                <td><?=$pet['description'];?></td><br>
+                <!-- <td>//<?=$pet['image'];?></td><br> -->
+                <td><a href="?delete=<?=$pet['id'];?>">Supprimer</a></td><br>
+            </tr>
+            </div>
+        
+    <?php } ?>
+    <br>
+    <button><a href="./addPets.php">Ajouter un pote 🐶 🐱 🐰</a></button><br>
 </body>
 </html>
