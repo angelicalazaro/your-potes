@@ -23,11 +23,9 @@
         foreach($pets as $pet) { ?> 
             <div>
             <tr> 
-                <td><?=$pet['id'];?></td><br>
-                <td><?=$pet['pet_name'];?></td><br>
+                <td><a href="./detailPets.php?id=<?=$pet['id'];?>"><?=$pet['pet_name'];?></a></td><br>
                 <td><?=$pet['description'];?></td><br>
                 <!-- <td>//<?=$pet['image'];?></td><br> -->
-                <td><a href="?delete=<?=$pet['id'];?>">Supprimer</a></td><br>
             </tr>
             </div>
         
