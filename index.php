@@ -1,7 +1,7 @@
 <pre>
 <?php
     require_once "./connect_db.php";
-    $sql = "SELECT * FROM pets";
+    $sql = "SELECT * FROM pets ORDER BY id ASC";
     $pdo = connectDb();
     $resultPdoStatement = $pdo->query($sql, PDO::FETCH_ASSOC);
     $pets = $resultPdoStatement->fetchAll();
