@@ -43,14 +43,33 @@ if (isset($_POST['id']) && isset($_POST['modifier'])) {
     }
 }
 
-// Utiliser GET afficher
-if (isset($_GET['id'])) {
-    $pdo = connectDb();
-    $sql = "SELECT * FROM pets WHERE id=:id";
-    $reqPreparee = $pdo->prepare($sql);
-     // passer des parametres a execute (c'est une fonction)
-    $result = $reqPreparee->execute(['id' => $_GET['id']]);
-    $pet = $reqPreparee->fetch(PDO::FETCH_ASSOC);
+// Utiliser GET afficher : sensible aux injections ?
+// if (isset($_GET['id'])) {
+//     $pdo = connectDb();
+//     $sql = "SELECT * FROM pets WHERE id=:id";
+//     $reqPreparee = $pdo->prepare($sql);
+//      // passer des parametres a execute (c'est une fonction)
+//     $result = $reqPreparee->execute(['id' => $_GET['id']]);
+//     $pet = $reqPreparee->fetch(PDO::FETCH_ASSOC);
+// }
+
+// "get" sans _$get : peut se faire dans une func a part ?
+$pdo = connectDb();
+$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+// verifier que l'id est un int
+if ($id === false) {
+    die("ID invalide");
+}
+$sql = "SELECT * FROM pets WHERE id = :id ORDER BY id DESC";
+$reqPreparee = $pdo->prepare($sql);
+$reqPreparee->bindValue(':id', $id, PDO::PARAM_INT);
+$reqPreparee->execute();
+$pet = $reqPreparee->fetch(PDO::FETCH_ASSOC);
+if ($pet) {
+    // stylyser avec une div. htmlspecialchars pour proteger les xss
+    echo "Nom : " . htmlspecialchars($pet['pet_name']);
+} else {
+    echo "Aucun animal trouvé.";
 }
 
 ?>
