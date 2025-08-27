@@ -24,16 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $descriptionErr = "Rentre une description valide s'il te plait";
     } else {
         $description = clean_input($description_input);
-        // preg_match permet d'ajouter des accents et des caracteres speciaux // verifier d'autre facon
+        // lettres et espaces seulement -> chercher une autre methode
         if (!ctype_alpha(str_replace(' ', '', $description))) {
             $descriptionErr = "Format invalide";
         }
     }
-    // if (empty($_FILES["image"])) {
-    //     $imageErr = "Rentre une image valide s'il te plait";
-    // } else {
-    //     $image = clean_input($_FILES["image"]);
-    // }
 
     // si aucune erreur, insert en bdd :
     if (empty($nameErr) && empty($descriptionErr)) {
@@ -64,10 +59,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajoute ton pote de 4 pattes !</title>
+    <link rel="stylesheet" href="/style/index.css" type="text/css">
+    <link rel="stylesheet" href="/style/header.css" type="text/css">
+    <link rel="stylesheet" href="/style/footer.css" type="text/css">
+    <link rel="stylesheet" href="/style/errorMessages.css" type="text/css">
 </head>
 <body>
+    <?php include __DIR__ . '/includes/header.php'; ?>
     <h1>Ajoute ton pote aux 4 pattes ICI 🐶 🐱 🐰</h1>
-
     <form action="addPets.php" enctype="multipart/form-data" method="POST">
         Quel est son nom : <input type="text" name="name"><br>
          <?php if (!empty($nameErr)): ?>
@@ -81,5 +80,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          <input name="button" type="submit">
     </form>
     <p><a href="index.php">Retour a la liste de potes 🐶 🐱 🐰</a></p>
+    <?php include __DIR__ . '/includes/footer.php'; ?>
 </body>
 </html>
