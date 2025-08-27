@@ -1,71 +1,225 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wdth,wght@98.5,300..700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
 body {
-    margin: 0px;
-    background-color: bisque;
-    font-family: "Lora", serif;
-    font-weight: 600;
+  margin: 0px;
+  background-color: bisque;
+  font-family: "Lora", serif;
+  font-weight: 600;
+  font-style: normal;
 }
 
 .index_subtitle {
-    font-family: "Lora", serif;
-    font-weight: 600;
+  text-align: start;
+  margin: 0.2rem auto;
+  max-width: 800px;
 }
 
-.index_subtitle img{
-    width: 30%;
-    height: 30%;
+.index_subtitle h2 {
+  font-family: "Fredoka", sans-serif;
+  font-weight: 500;
+  font-size: clamp(1rem, 2vw, 2rem);
+  margin-bottom: 0.2rem;
+  display: inline-block;
+  margin-left: clamp(11rem, 3vw, 1rem);
 }
+
+.index_subtitle p {
+display: inline-block;
+  background-color: azure;
+  border: 1px solid #0000;
+
+  box-shadow: #0f0f0f 4px 4px 0 0, #0000 5px 4px 0 21px;
+  box-sizing: border-box;
+  padding: 8px 16px;
+  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+  font-family: "Lora", serif;
+  font-weight: 500;
+  margin-left: clamp(1rem, 12vw, 8rem);
+  margin-top: 0.5rem;
+  cursor: default;
+}
+
+.index_subtitle img {
+  width: 30%;   
+  height: auto; 
+  display: block;
+  margin-left: clamp(1rem, 12vw, 8rem);
+}
+
+.main_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; 
+  gap: 2rem;
+  padding: 2rem;
+  flex-wrap: wrap; 
+}
+
 
 .cards_bg {
-    background-color: coral;
-    display: flex;
-    justify-content: space-around;
-    padding: 2rem;
+  flex: 1;
+  background-color: coral;
+  display: flex;
+  justify-content: space-between; 
+  gap: 2rem;                       
+  padding: 2rem;
+  border-radius: 1rem;
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: slideInLeft 1s ease-out forwards;
+  flex-wrap: wrap; 
 }
 
 .card {
-  /* Add shadows to create the "card" effect */
   background-color: azure;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   transition: 0.3s;
-  margin-top: 0;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  flex: 1 1 150px; 
+  max-width: 200px; 
 }
 
-.card img{
-    margin-top: 1.5rem;
-    width: 30%;
-    height: 30%;
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70% ;
+.card img {
+  margin-top: 1rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
 }
 
-/* On mouse-over, add a deeper shadow */
 .card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
 }
 
-/* Add some padding inside the card container */
-.container {
-  padding: 2px 16px;
+.pets_container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap; 
+  gap: 1rem;       
+  opacity: 0;
+  transform: translateX(50px);
+  animation: slideInRight 1s ease-out forwards;
+  animation-delay: 0.5s;
 }
-.action-btn {
-    background: #85d1db;
-    border-radius: 999px;
-    box-shadow: #85d1db 0 10px 20px -10px;
-    box-sizing: border-box;
-    color: #FFFFFF;
-    cursor: pointer;
-    font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 24px;
+
+.pets_container img {
+  width: 150px;  
+  height: auto;
+  position: relative; 
+}
+
+/* --- ANIMATIONS --- */
+@keyframes slideInLeft {
+  to {
     opacity: 1;
-    outline: 0 solid transparent;
-    padding: 8px 18px;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    width: fit-content;
-    word-break: break-word;
-    border: 0;
+    transform: translateX(0);
+  }
 }
+
+@keyframes slideInRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.pets_home_list h3 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.pets_cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.pet_card {
+  background-color: azure;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  flex: 1 1 200px;
+  max-width: 200px;
+  transition: 0.3s;
+}
+
+.pet_card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.pet_card h4 {
+  margin-bottom: 0.5rem;
+  font-family: "Lora", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.pet_card p {
+  margin-bottom: 1rem;
+  font-size: small;
+  font-weight: 400;
+}
+
+.pet_card:hover {
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.action-btn {
+  display: inline-block;
+  background: #85d1db;
+  border-radius: 999px;
+  box-shadow: #85d1db 0 10px 20px -10px;
+  color: #FFFFFF;
+  text-decoration: none; 
+  font-family: "Lora", serif;
+  font-weight: 500;
+  font-size: small;
+  line-height: 24px;
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.action-btn:hover {
+  box-shadow: #85d1db 0 12px 24px -12px;
+  transform: translateY(-2px);
+}
+
+/* --- MEDIA QUERY MOBILE --- */
+@media (max-width: 768px) {
+  .main_container {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .cards_bg {
+    flex-direction: row; 
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .pets_container {
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .pets_cards {
+    gap: 1rem;
+  }
+  .pet_card {
+    flex: 1 1 150px;
+    max-width: 180px;
+  }
+}
+
