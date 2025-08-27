@@ -12,6 +12,7 @@
     <nav>
         <div class="header_logo">
             <img src="/assets/images/logo.svg"/>
+            <h2>Mate mon pote</h2>
         </div>
         <div class="btn_container">
             <button class="home_login_btn">Connexion</button>
