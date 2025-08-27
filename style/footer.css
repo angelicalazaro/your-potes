@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wdth,wght@98.5,300..700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
+footer {
+    display: flex;
+    background-color: coral;
+    justify-content: space-between;
+    padding: 0 1rem 0 1rem;
+    font-family: "Fredoka", sans-serif;
+    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+    font-weight: 700;
+}

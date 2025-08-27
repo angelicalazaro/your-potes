@@ -1,31 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Lora:ital@1&display=swap');
 
+body {
+  position: relative;
+  min-height: 100vh;
+  margin: 0px;
+  background-color: bisque;
+  font-family: "Lora", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
 nav {
-    background-color: bisque;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  background-color: bisque;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .header_logo {
-    margin-top: 1rem;   
-    display: flex;
-    gap: 1rem;
-    font-family: "Fredoka", sans-serif;
-    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
-    font-weight: 700;
-    margin: 19px;
+  margin-top: 1rem;   
+  display: flex;
+  gap: 1rem;
+  font-family: "Fredoka", sans-serif;
+  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+  font-weight: 700;
+  margin: 19px;
+  text-decoration: none; 
+  color: inherit; 
 }
 
 .header_logo img {
-    width: 60px;    
-    height: 60px;        
-    border-radius: 50%;  
-    object-fit: cover;
+  width: 60px;    
+  height: 60px;        
+  border-radius: 50%;  
+  object-fit: cover;
 }
 
 .btn_container{
-    margin-right: 1rem;
+  margin-right: 1rem;
 }
 
 .home_login_btn {
@@ -75,8 +87,4 @@ nav {
   .home_login_btn {
     padding: 12px 50px;
   }
-}
-
-.insc_btn {
-
 }

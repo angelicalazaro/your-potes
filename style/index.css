@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wdth,wght@98.5,300..700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
 body {
+  position: relative;
+  min-height: 100vh;
   margin: 0px;
   background-color: bisque;
   font-family: "Lora", serif;
@@ -24,10 +26,9 @@ body {
 }
 
 .index_subtitle p {
-display: inline-block;
+  display: inline-block;
   background-color: azure;
   border: 1px solid #0000;
-
   box-shadow: #0f0f0f 4px 4px 0 0, #0000 5px 4px 0 21px;
   box-sizing: border-box;
   padding: 8px 16px;
@@ -37,6 +38,7 @@ display: inline-block;
   margin-left: clamp(1rem, 12vw, 8rem);
   margin-top: 0.5rem;
   cursor: default;
+  border-radius: 14px 20px 2px 17px;
 }
 
 .index_subtitle img {
@@ -136,6 +138,7 @@ display: inline-block;
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
+  padding: 0 1rem 0 1rem;
 }
 
 .pet_card {
@@ -175,7 +178,9 @@ display: inline-block;
 }
 
 .action-btn {
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   background: #85d1db;
   border-radius: 999px;
   box-shadow: #85d1db 0 10px 20px -10px;
@@ -193,6 +198,21 @@ display: inline-block;
 .action-btn:hover {
   box-shadow: #85d1db 0 12px 24px -12px;
   transform: translateY(-2px);
+}
+
+.error_message {
+  background-color: #ffe6e6;
+  border: 1px solid #cc0000;
+  color: #cc0000;
+  padding: 10px;
+  margin: 15px 0;
+  border-radius: 5px;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
 }
 
 /* --- MEDIA QUERY MOBILE --- */
