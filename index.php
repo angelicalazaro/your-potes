@@ -1,12 +1,9 @@
-
 <?php
-    include("./includes/header.php");
     require_once "./connect_db.php";
     $sql = "SELECT * FROM pets ORDER BY id ASC";
     $pdo = connectDb();
     $resultPdoStatement = $pdo->query($sql, PDO::FETCH_ASSOC);
     $pets = $resultPdoStatement->fetchAll();
-
 ?>
 
 <!DOCTYPE html>
@@ -15,10 +12,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mes potes</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/images/logo.svg">
     <link rel="stylesheet" href="../style/index.css" type="text/css">
-
+    <link rel="stylesheet" href="/style/header.css" type="text/css">
+    <link rel="stylesheet" href="/style/footer.css" type="text/css">
 </head>
 <body>
+    <?php include __DIR__ . '/includes/header.php'; ?>
     <div class="index_subtitle">
         <h2>L'amicale de potes aux 4 pattes 🐶 🐱 🐰</h2><br>
         <p>Comment ca marche ?</p>
@@ -68,6 +68,9 @@
         </section>
         <br>
     </main>
-    <a class="action-btn" href="./addPets.php">Ajouter un pote 🐶 🐱 🐰</a><br>
+    <div class="btn-container">
+        <a class="action-btn" href="./addPets.php">Ajouter un pote 🐶 🐱 🐰</a>
+    </div>
+    <?php include __DIR__ . '/includes/footer.php'; ?>
 </body>
 </html>
