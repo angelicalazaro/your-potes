@@ -2,15 +2,15 @@
 
 require_once "./connect_db.php";
 
+$nameErr = $descriptionErr = "";
+$name = $description = "";
 $erreur = "";
 
 if (isset($_POST['id']) && isset($_POST['supprimer'])) {
 // delete
     $sql = "DELETE FROM pets WHERE id=:id";
     $reqPreparee = $pdo->prepare($sql);
-    // passer des parametres a execute (c'est une fonction)
     $result = $reqPreparee->execute(['id' => $_POST['id']]);
-    // si la requete est executee
     if ($result) {
         // redirection a Home
         header("location: index.php");
@@ -23,24 +23,48 @@ if (isset($_POST['id']) && isset($_POST['supprimer'])) {
 // update
 
 if (isset($_POST['id']) && isset($_POST['modifier'])) {
-    $sql = "UPDATE pets SET pet_name=:pet_name WHERE id=:id";
-    $reqPreparee = $pdo->prepare($sql);
-    // passer des parametres a execute (c'est une fonction)
-    $result = $reqPreparee->execute(
-        [
-            'id'=>$_POST['id'],
-            'pet_name'=>$_POST['pet_name']   
-        ]
-        // ['description'=>$_POST['description']]
-    );
-    // si la requete est executee
-    if ($result) {
-        // redirection a Home
-        header("location: index.php?message=ok");
-        exit();
+
+    $name_input = $_POST["pet_name"] ?? "";
+    $description_input = $_POST["description"] ?? "";
+
+    if (empty($name_input)) {
+        $nameErr = "Introduit un nom, c'est un champ obligatoire";
     } else {
-        $erreur = "Impossibilite de modifier ce pote";
+        $name = clean_input($name_input);
+        if (!preg_match("/^[a-zA-ZÀ-ÿ0-9' -]+$/u", $name)) {
+            $nameErr = "Format invalide";
+        }
     }
+
+    if (empty($description_input)) {
+        $descriptionErr = "Rentre une description, champ obligatoire";
+    } else {
+        $description = clean_input($description_input);
+        if (!preg_match("/^[\p{L}\p{N}\p{P}\p{S}\p{Zs}]+$/u", $description)) {
+            $descriptionErr = "Format invalide, rentre une bonne description";
+        }
+    }
+
+    if (empty($nameErr) && empty($descriptionErr)) {
+        try {
+            $sql = "UPDATE pets SET pet_name=:pet_name, description=:description WHERE id=:id";
+            $reqPreparee = $pdo->prepare($sql);
+            $result = $reqPreparee->execute([
+                'id'=>$_POST['id'],
+                'pet_name'=>$name,   
+                'description'=>$description
+            ]);
+            if ($result) {
+                $successMsg = "Modifications enregistrées avec succès !";
+            } else {
+                $erreur = "Impossibilite de modifier ce pote";
+            }
+        } catch (PDOException $e) {
+            $nameErr = "Erreur de base de donnees";
+            echo $e->getMessage();
+        } 
+    }
+    
 }
 
 // "get" sans _$get : peut se faire dans une func a part ?
@@ -65,7 +89,7 @@ $pet = $reqPreparee->fetch(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="/style/index.css" type="text/css">
     <link rel="stylesheet" href="/style/header.css" type="text/css">
     <link rel="stylesheet" href="/style/footer.css" type="text/css">
-    <link rel="stylesheet" href="/style/errorMessages.css" type="text/css">
+    <link rel="stylesheet" href="/style/globals.css" type="text/css">
 </head>
 <body>
     <?php include __DIR__ . '/includes/header.php'; ?>
@@ -77,39 +101,43 @@ $pet = $reqPreparee->fetch(PDO::FETCH_ASSOC);
         </div> 
     <?php endif; ?>
 
-    <?php
-    // tableau associatif pour traduire les entres bdd en etiquettes front :
-    $labels = [
-        'pet_name'=> 'Nom :',
-        'description'=> 'Description : ',
-        'created_at'=> 'Ajoute le : '
-    ];
-    ?>
-    <table>
-    <?php
-    foreach($labels as $column => $label) {  ?>
-    <tr>
-        <!-- montrer que les elements de labels -->
-      <td><h2><?php echo $label; ?></h2></td>
-      <td><?php echo $pet[$column]; ?></td>
-    </tr>
-    
-    <?php }
-    ?>
-    </table>
-    <h3>Supprimer mon pote</h3>
-        <form action="" method="post">
-            <input type="submit" name="supprimer" value="Supprimer">
-            <!-- champ cache pour envoyer cette demande au serveur -->
-            <input type="hidden" name="id" value="<?=$pet['id'];?>" >
-        </form> 
     <h3>Modifier mon pote</h3>
-        <form action="" method="post">
-            <input type="hidden" name="id" value="<?=$pet['id'];?>" >
-                Modifier le nom : 
-            <input type="text" name="pet_name" value="<?=$pet['pet_name'];?>" >
-            <input type="submit" name="modifier" value="Modifier">
-        </form> 
-    <?php include __DIR__ . '/includes/footer.php'; ?>
+    <form action="" method="post" class="forms">
+        <input type="hidden" name="id" value="<?= $pet['id']; ?>">
+
+        <?php
+        $labels = [
+            'pet_name'=> 'Nom :',
+            'description'=> 'Description : ',
+            'created_at'=> 'Ajoute le : ',
+            'update_at'=> 'Modifie le : '
+        ];
+        ?>
+
+        <?php foreach($labels as $column => $label): ?>
+        <div class="form-row">
+            <label><?= $label ?></label>
+            <?php if(in_array($column, ['pet_name','description'])): ?>
+                <input 
+                    type="text" 
+                    name="<?= $column ?>" 
+                    value="<?= htmlspecialchars($pet[$column]) ?>"
+                >
+                <?php if($column === 'pet_name' && !empty($nameErr)): ?>
+                    <span class="error_message"><?= $nameErr ?></span>
+                <?php endif; ?>
+                <?php if($column === 'description' && !empty($descriptionErr)): ?>
+                    <span class="error_message"><?= $descriptionErr ?></span>
+                <?php endif; ?>
+            <?php else: ?>
+                <span><?= htmlspecialchars($pet[$column]) ?></span>
+            <?php endif; ?>
+        </div>
+        <?php endforeach; ?>
+
+        <input type="submit" name="modifier" value="Modifier" class="action-btn">
+        <input type="submit" name="supprimer" value="Supprimer mon pote" class="action-btn">
+    </form>
+<?php include __DIR__ . '/includes/footer.php'; ?>
 </body>
 </html>
