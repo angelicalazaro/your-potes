@@ -4,7 +4,7 @@
         <h2>Mate mon pote</h2>
     </a>
     <div class="btn_container">
-        <button class="home_login_btn">Connexion</button>
-        <button class="home_login_btn">Inscription</button>
+        <a class="home_login_btn" href="../user/signUp.php">Connexion</a>
+        <a class="home_login_btn">Inscription</a>
     </div>
 </nav>

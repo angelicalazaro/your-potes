@@ -14,7 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nameErr = "Introduit un nom, champ obligatoire";
     } else {
         $name = clean_input($name_input);
-        // verifier d'autre facon
         if (!preg_match("/^[a-zA-ZÀ-ÿ0-9' -]+$/u", $name)) {
             $nameErr = "Format invalide";
         }
@@ -23,7 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $descriptionErr = "Rentre une description, champ obligatoire";
     } else {
         $description = clean_input($description_input);
-        // lettres et espaces seulement -> chercher une autre methode
         if (!preg_match("/^[\p{L}\p{N}\p{P}\p{S}\p{Zs}]+$/u", $description)) {
             $descriptionErr = "Format invalide";
         }

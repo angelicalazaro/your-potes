@@ -1,5 +1,6 @@
 <?php
-require_once "./config.php";
+
+require_once __DIR__ . '/config.php';
 
 function connectDb() {
     global $host_bdd, $user_bdd, $pwd_bdd;
