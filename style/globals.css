@@ -1,0 +1,40 @@
+.error_message {
+    background-color: #ffe6e6;
+    border: 1px solid #cc0000;
+    color: #cc0000;
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 5px;
+}
+
+input:invalid {
+  border: red solid 3px;
+}
+
+.forms {
+    display: flex;
+    padding: 1vh;
+}
+
+.action-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: #85d1db;
+    border-radius: 999px;
+    box-shadow: #85d1db 0 10px 20px -10px;
+    color: #FFFFFF;
+    text-decoration: none; 
+    font-family: "Lora", serif;
+    font-weight: 500;
+    font-size: small;
+    line-height: 24px;
+    padding: 8px 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.action-btn:hover {
+    box-shadow: #85d1db 0 12px 24px -12px;
+    transform: translateY(-2px);
+}
