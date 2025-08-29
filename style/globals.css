@@ -39,7 +39,7 @@ input:invalid {
     transform: translateY(-2px);
 }
 
-.success_messaqge {
+.success_message {
     padding: 20px;
     background-color: green;
     color: white;
