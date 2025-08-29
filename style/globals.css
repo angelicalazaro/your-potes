@@ -38,3 +38,9 @@ input:invalid {
     box-shadow: #85d1db 0 12px 24px -12px;
     transform: translateY(-2px);
 }
+
+.success_messaqge {
+    padding: 20px;
+    background-color: green;
+    color: white;
+}
