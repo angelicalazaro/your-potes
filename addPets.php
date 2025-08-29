@@ -72,19 +72,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="name">Quel est son nom :</label> 
             <input 
                 type="text" 
+                id="name"
                 name="name">
                 <br>
             <?php if (!empty($nameErr)): ?>
-                <span class="error_message"><?= $nameErr ?></span><br>
+                <span class="error_message"><?php echo $nameErr; ?></span><br>
             <?php endif; ?>
             <label for="description">Comment tu lui decris ?</label> 
             <input 
                 type="text" 
+                id="description"
                 name="description"
             >
                 <br>
             <?php if (!empty($descriptionErr)): ?>
-                <span class="error_message"><?= $descriptionErr ?></span><br>
+                <span class="error_message"><?php $descriptionErr; ?></span><br>
             <?php endif; ?>
             <!-- Tu as des photos ? Vas y : <input type="file" name="image" accept="image/*"> -->
             <button type="submit" class="action-btn">Ajouter</button>
