@@ -1,11 +1,9 @@
 <?php
-session_start();
-
 // Fonction pour vérifier la connexion
 // function isLoggedIn() {
 //     return isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
 // }
-
+session_start();
 require_once __DIR__ . "/../connect_db.php";
 $usernameErr = $passwordErr = $generalErr = "";
 $username = $password_hashed = "";
@@ -78,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
     
     <form action="login.php" method="POST" class="forms"> 
         <label for="username">Prénom : </label>
-        <input type="text" id="username" name="username">
+        <input type="text" id="username" name="username" value="<?= htmlspecialchars($username ?? '') ?>">
         <?php if (!empty($usernameErr)): ?>
             <span class="error_message"><?php echo $usernameErr; ?></span>
         <?php endif; ?>

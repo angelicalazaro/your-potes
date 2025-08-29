@@ -3,7 +3,7 @@
 require_once __DIR__ . "/../connect_db.php";
 
 $usernameErr = $emailErr = $passwordErr = $generalErr = "";
-$username = $email = $password_hashed = "";
+$username = $email = $password_hashed = $successMessage = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username_input = $_POST["username"] ?? "";
@@ -42,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $reqPreparee = $pdo->prepare($sql);
             $result = $reqPreparee->execute([$username, $email, $password_hashed]);
             if ($result) {
+                header("location: userProfile.php");
                 $successMessage = "Ton profil a bien ete cree";
             } else {
                 $passwordErr = "Erreur lors de l'enregistrement";
@@ -78,7 +79,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input 
             type="text" 
             id="username"
-            name="username">
+            name="username"
+            value="<?php echo htmlspecialchars($username ?? '');?>"
+        >
             <br>
         <?php if (!empty($usernameErr)): ?>
             <span class="error_message"><?php echo $usernameErr; ?></span><br>
@@ -88,6 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             type="email"
             id="email" 
             name="email"
+            value="<?php echo htmlspecialchars($email ?? ''); ?>"
         >
             <br>
         <?php if (!empty($emailErr)): ?>
