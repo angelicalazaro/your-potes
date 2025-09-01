@@ -1,4 +1,5 @@
 <?php
+session_start();
     require_once "./config/connect_db.php";
     $sql = "SELECT * FROM pets ORDER BY id ASC";
     $pdo = connectDb();
