@@ -1,6 +1,6 @@
 <?php
 
-require "./functions.php";
+require "functions.php";
 // si la variable session_started n'existe pas, initialiser la session et mettre la variable a true (la faire exister)
 if (!isset($session_started)) {
     session_start();
