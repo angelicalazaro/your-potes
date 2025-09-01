@@ -1,8 +1,12 @@
 <?php
 
 require_once 'includes/session_manager.php';
-require_once "./config/connect_db.php";
-$sql = "SELECT * FROM pets ORDER BY id ASC";
+require_once './config/connect_db.php';
+
+$sql = "SELECT pets.*, users.username as owner_name 
+        FROM pets 
+        JOIN users ON pets.user_id = users.id
+        ORDER BY pets.id ASC";
 $pdo = connectDb();
 $resultPdoStatement = $pdo->query($sql, PDO::FETCH_ASSOC);
 $pets = $resultPdoStatement->fetchAll();
@@ -61,9 +65,10 @@ $pets = $resultPdoStatement->fetchAll();
                 <?php
                     foreach($pets as $pet) { ?> 
                         <div class="pet_card">
-                            <h4><?=$pet['pet_name'];?></h4>
-                            <p><?=$pet['description'];?></p>
-                            <a class="action-btn" href="./detailPets.php?id=<?=$pet['id'];?>">Connaitre ce pote</a>
+                            <h4><?php echo $pet['pet_name']; ?></h4>
+                            <p><?php echo $pet['description'];?></p>
+                            <p><?php echo $pet['owner_name'];?></p>
+                            <a class="action-btn" href="/pets/detailPets.php?id=<?=$pet['id'];?>">Connaitre ce pote</a>
                         </div>
                 <?php } ?>
             </div>
@@ -71,7 +76,7 @@ $pets = $resultPdoStatement->fetchAll();
         <br>
     </main>
     <div class="btn-container">
-        <a class="action-btn" href="./addPets.php">Ajouter un pote 🐶 🐱 🐰</a>
+        <a class="action-btn" href="/pets/addPets.php">Ajouter un pote 🐶 🐱 🐰</a>
     </div>
     <?php include __DIR__ . '/includes/footer.php'; ?>
 </body>
