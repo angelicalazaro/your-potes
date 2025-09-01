@@ -1,13 +1,10 @@
 <?php
+
+require "./functions.php";
 // si la variable session_started n'existe pas, initialiser la session et mettre la variable a true (la faire exister)
 if (!isset($session_started)) {
     session_start();
     $session_started = true;
-}
-
-// passer a fichier functions.php, appeler avec require
-function isLoggedIn() {
-    return isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
 }
 ?>
 
