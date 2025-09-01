@@ -4,7 +4,8 @@
 //     return isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
 // }
 session_start();
-require_once __DIR__ . "/../connect_db.php";
+
+require_once __DIR__ . "/../config/connect_db.php";
 $usernameErr = $passwordErr = $generalErr = "";
 $username = $password_hashed = "";
 
@@ -40,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
         $reqPreparee->execute([$username]);
         $user = $reqPreparee->fetch();
         
-        if ($user && password_verify($password, $user['password_hash'])) {
+        if ($user && password_verify($password, $user['password'])) {
             // connexion réussie
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];

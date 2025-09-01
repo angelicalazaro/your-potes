@@ -5,6 +5,7 @@ if (!isset($session_started)) {
     $session_started = true;
 }
 
+// passer a fichier functions.php, appeler avec require
 function isLoggedIn() {
     return isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
 }
@@ -15,7 +16,7 @@ function isLoggedIn() {
         <img src="/assets/images/logo.svg"/>
         <h2>Mate mon pote</h2>
     </a>
-    <?php if(isLoggedIn()): ?>
+    <?php if(isLoggedIn() === true): ?> 
         <span>Hello ! <?php echo htmlspecialchars($_SESSION['username']); ?></span>
         <a href="/user/logout.php" class="action-btn">Déconnexion</a>
         <a href="/user/userProfile.php" class="action-btn">Mon Profil</a> 

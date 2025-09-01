@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/../connect_db.php";
+require_once __DIR__ . "/../config/connect_db.php";
 
 $usernameErr = $emailErr = $passwordErr = $generalErr = "";
 $username = $email = $password_hashed = $successMessage = "";
@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if(empty($usernameErr) && empty($emailErr) && empty($passwordErr)) {
         try {
-            $sql = "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)";
+            $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
             $reqPreparee = $pdo->prepare($sql);
             $result = $reqPreparee->execute([$username, $email, $password_hashed]);
             if ($result) {

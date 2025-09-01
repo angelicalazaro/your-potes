@@ -1,6 +1,8 @@
 <?php
 
-require_once __DIR__ . "/../connect_db.php";
+session_start();
+
+require_once __DIR__ . "/../config/connect_db.php";
 
 $usernameErr = $emailErr = $passwordErr = $generalErr = "";
 $username = $email = $password_hashed = "";

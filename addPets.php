@@ -1,6 +1,6 @@
 <?php
 
-require_once "./connect_db.php";
+require_once "./config/connect_db.php";
 // initialisation des variables
 $nameErr = $descriptionErr = "" ;
 $name = $description = "";
@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($description_input)) {
         $descriptionErr = "Rentre une description, champ obligatoire";
     } else {
+        // verif côté serveur
         $description = clean_input($description_input);
         if (!preg_match("/^[\p{L}\p{N}\p{P}\p{S}\p{Zs}]+$/u", $description)) {
             $descriptionErr = "Format invalide";
