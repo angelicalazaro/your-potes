@@ -1,14 +1,15 @@
 <?php
 
+require_once __DIR__ . "/../includes/session_manager.php";
 require_once __DIR__ . "/../config/connect_db.php";
 
 $usernameErr = $emailErr = $passwordErr = $generalErr = "";
-$username = $email = $password_hashed = $successMessage = "";
+$username = $email = $password = $successMessage = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username_input = $_POST["username"] ?? "";
     $email_input = $_POST["email"] ?? "";
-    $password_input = $_POST["password_hash"] ?? "";
+    $password_input = $_POST["password"] ?? "";
 
     if(empty($username_input)) {
         $usernameErr = "Introduit ton nom, champ obligatoire";
@@ -30,17 +31,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $passwordErr = "Introduit un mot de passe, champ obligatoire";
     } else {
         if (!preg_match("/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?])[\w!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]{8,}$/", $password_input)) {
-            $passwordErr = "Minimun 8 caracteres : au moins une lettre, un chiffre et un caractere special";
+            $passwordErr = "Minimum 8 caracteres : au moins une lettre, un chiffre et un caractere special";
         } else {
-            $password_hashed = password_hash($password_input, PASSWORD_DEFAULT);
+            $password = password_hash($password_input, PASSWORD_DEFAULT);
         }
     }
 
     if(empty($usernameErr) && empty($emailErr) && empty($passwordErr)) {
         try {
-            $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+            $sql = "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)";
             $reqPreparee = $pdo->prepare($sql);
-            $result = $reqPreparee->execute([$username, $email, $password_hashed]);
+            $result = $reqPreparee->execute([$username, $email, $password]);
             if ($result) {
                 header("location: userProfile.php");
                 $successMessage = "Ton profil a bien ete cree";
@@ -97,11 +98,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php if (!empty($emailErr)): ?>
             <span class="error_message"><?php echo $emailErr; ?></span><br>
         <?php endif; ?>
-        <label for="password_hash">Choisi un mot de passe : </label>
+        <label for="password">Choisi un mot de passe : </label>
         <input  
             type="password"
-            id="password_hash"
-            name="password_hash"
+            id="password"
+            name="password"
         >
         <br>
         <?php if (!empty($passwordErr)): ?>

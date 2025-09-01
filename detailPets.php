@@ -1,6 +1,7 @@
 <?php
 
-require_once "./connect_db.php";
+require "./includes/session_manager.php";
+require_once "./config/connect_db.php";
 
 $nameErr = $descriptionErr = "";
 $name = $description = "";

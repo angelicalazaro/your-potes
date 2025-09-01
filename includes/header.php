@@ -1,11 +1,9 @@
 <?php
 
-require "functions.php";
-// si la variable session_started n'existe pas, initialiser la session et mettre la variable a true (la faire exister)
-if (!isset($session_started)) {
-    session_start();
-    $session_started = true;
+if (!function_exists('isLoggedIn')) {
+    die('Erreur : session_manager non inclus');
 }
+//  bouton page Mes animaux
 ?>
 
 <nav>
@@ -14,13 +12,14 @@ if (!isset($session_started)) {
         <h2>Mate mon pote</h2>
     </a>
     <?php if(isLoggedIn() === true): ?> 
-        <span>Hello ! <?php echo htmlspecialchars($_SESSION['username']); ?></span>
-        <a href="/user/logout.php" class="action-btn">Déconnexion</a>
-        <a href="/user/userProfile.php" class="action-btn">Mon Profil</a> 
+        <?php $user = getCurrentUser(); ?>
+        <span>Hello ! <?php echo htmlspecialchars($user['username']); ?></span>
+        <a href="/auth/logout.php" class="action-btn">Déconnexion</a>
+        <a href="/auth/userProfile.php" class="action-btn">Mon Profil</a> 
     <?php else: ?>
     <div class="btn_container">
-        <a class="home_login_btn" href="../user/login.php">Connexion</a>
-        <a class="home_login_btn" href="../user/signUp.php">Inscription</a>
+        <a class="home_login_btn" href="../auth/login.php">Connexion</a>
+        <a class="home_login_btn" href="../auth/signUp.php">Inscription</a>
     </div>
     <?php endif ?>
 </nav>

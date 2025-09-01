@@ -6,7 +6,7 @@ require_once __DIR__ . "/../config/connect_db.php";
 redirectIfLogged('/auth/userProfile.php');
 
 $usernameErr = $passwordErr = $generalErr = "";
-$username = $password_hashed = "";
+$username = $password = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
 
@@ -25,14 +25,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
         $reqPreparee->execute([$username]);
         $user = $reqPreparee->fetch();
         
-        if ($user && password_verify($password, $user['password'])) {
+        if ($user && password_verify($password, $user['password_hash'])) {
             // connexion réussie
             $_SESSION['user_id'] = $user['id'];
+            var_dump($_SESSION);
             $_SESSION['username'] = $user['username'];
             header("location: userProfile.php");
             exit;
         } else {
-            $_SESSION['error'] = "Identifiants incorrects";
+            $generalErr = "Identifiants incorrects";
         }
     }
 }
@@ -52,12 +53,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
     <?php include __DIR__ . '/../includes/header.php'; ?>
     <h2>Connexion</h2>
     
-    <?php
-    if (isset($_SESSION['error'])) {
-        echo "<p class='error_message'>{$_SESSION['error']}</p>";
-        unset($_SESSION['error']);
-    }
-    ?>
+    <?php if (!empty($generalErr)): ?>
+        <p class="error_message"><?= htmlspecialchars($generalErr) ?></p>
+    <?php endif; ?>
     
     <form action="login.php" method="POST" class="forms"> 
         <label for="username">Prénom : </label>

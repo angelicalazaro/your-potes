@@ -1,10 +1,11 @@
 <?php
-session_start();
-    require_once "./config/connect_db.php";
-    $sql = "SELECT * FROM pets ORDER BY id ASC";
-    $pdo = connectDb();
-    $resultPdoStatement = $pdo->query($sql, PDO::FETCH_ASSOC);
-    $pets = $resultPdoStatement->fetchAll();
+
+require_once 'includes/session_manager.php';
+require_once "./config/connect_db.php";
+$sql = "SELECT * FROM pets ORDER BY id ASC";
+$pdo = connectDb();
+$resultPdoStatement = $pdo->query($sql, PDO::FETCH_ASSOC);
+$pets = $resultPdoStatement->fetchAll();
 ?>
 
 <!DOCTYPE html>

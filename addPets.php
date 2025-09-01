@@ -1,5 +1,5 @@
 <?php
-require "./../includes/functions.php";
+require "./includes/session_manager.php";
 require "./config/connect_db.php";
 
 if (!isLoggedIn()) {
@@ -38,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // etablir connexion bdd :
         try {
             $pdo = connectDb();
+            // ajouter user_id connecté
             $sql = "INSERT INTO pets (pet_name, description) VALUES (?, ?)";
             $reqPreparee = $pdo->prepare($sql);
             $result = $reqPreparee->execute([$name, $description]);
