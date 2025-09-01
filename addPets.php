@@ -1,6 +1,11 @@
 <?php
+require "./../includes/functions.php";
+require "./config/connect_db.php";
 
-require_once "./config/connect_db.php";
+if (!isLoggedIn()) {
+    header('Location: /../user/login.php');
+    exit();
+}
 // initialisation des variables
 $nameErr = $descriptionErr = "" ;
 $name = $description = "";
