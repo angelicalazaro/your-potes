@@ -27,7 +27,7 @@ A pet profile management web application built with pure PHP and CSS for learnin
 
 - **Backend**: Pure PHP
 - **Frontend**: Pure CSS, HTML
-- **Database**: MySQL
+- **Database**: MariaDB
 - **Server**: WAMP/XAMPP
 - **Session Management**: PHP Sessions
 

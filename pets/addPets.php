@@ -3,7 +3,7 @@ require "../includes/session_manager.php";
 require "../config/connect_db.php";
 
 if (!isLoggedIn()) {
-    header('Location: /../user/login.php');
+    header('Location: /../auth/login.php');
     exit();
 }
 // initialisation des variables

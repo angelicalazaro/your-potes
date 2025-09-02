@@ -27,7 +27,7 @@ Une application web de gestion de profils d'animaux construite en PHP et CSS pur
 
 - **Backend** : PHP pur
 - **Frontend** : CSS pur, HTML
-- **Base de Données** : MySQL
+- **Base de Données** : MariaBD
 - **Serveur** : WAMP/XAMPP
 - **Gestion de Sessions** : Sessions PHP
 
