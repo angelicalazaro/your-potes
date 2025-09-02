@@ -16,6 +16,7 @@ if (!function_exists('isLoggedIn')) {
         <span>Hello ! <?php echo htmlspecialchars($user['username']); ?></span>
         <a href="/auth/logout.php" class="action-btn">Déconnexion</a>
         <a href="/auth/userProfile.php" class="action-btn">Mon Profil</a> 
+        <a href="/auth/myPets.php" class="action-btn">Mes potes</a>
     <?php else: ?>
     <div class="btn_container">
         <a class="home_login_btn" href="../auth/login.php">Connexion</a>
