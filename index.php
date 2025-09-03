@@ -65,6 +65,19 @@ $pets = $resultPdoStatement->fetchAll();
                 <?php
                     foreach($pets as $pet) { ?> 
                         <div class="pet_card">
+                            <div class="pet_image_container">
+                                <?php if (!empty($pet['image_path'])) { ?>
+                                    <img src="/uploads/pets-photos/<?= ($pet['image_path']) ?>"
+                                         alt="Photo de : <?= ($pet['pet_name']) ?>"
+                                         class="pet_card_image">
+                                <?php } else { ?>
+                                    <div class="pet_no_image">
+                                        <!-- Ajouter une photo par default  -->
+                                        <span>Pote sans p(h)oto</span>
+                                    </div>
+                                <?php } ?>
+                            </div>
+
                             <h4><?php echo $pet['pet_name']; ?></h4>
                             <p><?php echo $pet['description'];?></p>
                             <p><?php echo $pet['owner_name'];?></p>
