@@ -3,6 +3,7 @@
 require_once __DIR__ . "/../includes/session_manager.php";
 require_once __DIR__ . "/../config/connect_db.php";
 
+$title = "Inscription a Mate mon pote";
 $usernameErr = $emailErr = $passwordErr = $generalErr = "";
 $username = $email = $password = $successMessage = "";
 
@@ -59,15 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription a Mate mon pote</title>
-    <link rel="stylesheet" href="/../style/index.css" type="text/css">
-    <link rel="stylesheet" href="/../style/header.css" type="text/css">
-    <link rel="stylesheet" href="/../style/footer.css" type="text/css">
-    <link rel="stylesheet" href="/../style/globals.css" type="text/css">
-</head>
+<?php include __DIR__ . '/../includes/head.php'; ?>
 <body>
     <?php include __DIR__ . '/../includes/header.php'; ?>
     <h1>Inscription</h1>

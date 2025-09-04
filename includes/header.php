@@ -7,11 +7,11 @@ if (!function_exists('isLoggedIn')) {
 ?>
 
 <nav>
-    <a href="../index.php" class="header_logo">
+    <a href="/index.php" class="header_logo">
         <img src="/assets/images/logo.svg"/>
         <h2>Mate mon pote</h2>
     </a>
-    <?php if(isLoggedIn() === true): ?> 
+    <?php if (isLoggedIn() === true): ?> 
         <?php $user = getCurrentUser(); ?>
         <span>Hello ! <?php echo htmlspecialchars($user['username']); ?></span>
         <a href="/auth/logout.php" class="action-btn">Déconnexion</a>
@@ -19,8 +19,8 @@ if (!function_exists('isLoggedIn')) {
         <a href="/auth/myPets.php" class="action-btn">Mes potes</a>
     <?php else: ?>
     <div class="btn_container">
-        <a class="home_login_btn" href="../auth/login.php">Connexion</a>
-        <a class="home_login_btn" href="../auth/signUp.php">Inscription</a>
+        <a class="home_login_btn" href="/auth/login.php">Connexion</a>
+        <a class="home_login_btn" href="/auth/signUp.php">Inscription</a>
     </div>
     <?php endif ?>
 </nav>

@@ -45,9 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['modifier'])) {
     }
 } 
 
-
-
-
 // "get"
 $pdo = connectDb();
 $sql = "SELECT * FROM users WHERE id = " . $user_id;
@@ -77,6 +74,7 @@ $user_data = $resultPdoStatement->fetchAll();
             'username' => 'Nom d\'utilisateur',
 
         ]; ?>
+    </form>
     <h1>Ceci est la page profil, hello !</h1> 
     <?php include __DIR__ . '/../includes/footer.php'; ?>
 </body>

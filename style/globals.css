@@ -1,3 +1,18 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1; /* occupe tout l’espace restant */
+}
+
 .error_message {
     background-color: #ffe6e6;
     border: 1px solid #cc0000;

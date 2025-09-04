@@ -6,15 +6,17 @@ require_once "../config/connect_db.php";
 $nameErr = $descriptionErr = "";
 $name = $description = "";
 $erreur = "";
+$title = "Ton pote";
 
 // get de potes
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if ($id === false) {
     die("ID invalide");
 }
-$sql = "SELECT pets.*, users.username as owner_name 
+$sql = "SELECT pets.*, users.username as owner_name, species.sp_name 
         FROM pets 
         JOIN users ON pets.user_id = users.id
+        LEFT JOIN species ON pets.species_id = species.id
         WHERE pets.id = :id
         ORDER BY pets.id ASC";
 $reqPreparee = $pdo->prepare($sql);
@@ -75,7 +77,7 @@ if (isset($_POST['id']) && isset($_POST['modifier'])) {
             $file_basename = pathinfo($_FILES["new_image"]["name"], PATHINFO_FILENAME);
             $file_extension = pathinfo($_FILES["new_image"]["name"], PATHINFO_EXTENSION);
             $new_image_name = $file_basename . '_' . date("Ymd_His") . '.' . $file_extension;
-            
+
             $target_directory = "../uploads/pets-photos/";
             if (!is_dir($target_directory)) {
                 mkdir($target_directory, 0755, true);
@@ -120,20 +122,14 @@ if (isset($_POST['id']) && isset($_POST['modifier'])) {
             echo $e->getMessage();
         } 
     }
+    // redirection avec l'id //////// completer
+    header("Location: ./detailPets.php?id=$id");
 }
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ton pote</title>
-    <link rel="stylesheet" href="/style/index.css" type="text/css">
-    <link rel="stylesheet" href="/style/header.css" type="text/css">
-    <link rel="stylesheet" href="/style/footer.css" type="text/css">
-    <link rel="stylesheet" href="/style/globals.css" type="text/css">
-</head>
+<?php include __DIR__ . '/../includes/head.php'; ?>
 <body>
     <?php include __DIR__ . '/../includes/header.php'; ?>
     <div class="pet-image-container">

@@ -2,27 +2,20 @@
 
 require_once 'includes/session_manager.php';
 require_once './config/connect_db.php';
+$title = "Mate mon pote - Accueil";
 
-$sql = "SELECT pets.*, users.username as owner_name 
+$sql = "SELECT pets.*, users.username as owner_name, species.sp_name 
         FROM pets 
         JOIN users ON pets.user_id = users.id
+        LEFT JOIN species ON pets.species_id = species.id
         ORDER BY pets.id ASC";
-$pdo = connectDb();
 $resultPdoStatement = $pdo->query($sql, PDO::FETCH_ASSOC);
 $pets = $resultPdoStatement->fetchAll();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mes potes</title>
-    <link rel="icon" type="image/svg+xml" href="/assets/images/logo.svg">
-    <link rel="stylesheet" href="../style/index.css" type="text/css">
-    <link rel="stylesheet" href="/style/header.css" type="text/css">
-    <link rel="stylesheet" href="/style/footer.css" type="text/css">
-</head>
+<?php include __DIR__ . '/includes/head.php'; ?>
 <body>
     <?php include __DIR__ . '/includes/header.php'; ?>
     <div class="index_subtitle">
@@ -78,9 +71,10 @@ $pets = $resultPdoStatement->fetchAll();
                                 <?php } ?>
                             </div>
 
-                            <h4><?php echo $pet['pet_name']; ?></h4>
+                            <h4><strong>Nom : </strong><?php echo $pet['pet_name']; ?></h4>
                             <p><?php echo $pet['description'];?></p>
-                            <p><?php echo $pet['owner_name'];?></p>
+                            <p><strong>Espece : </strong><?php echo $pet['sp_name'];?></p>
+                            <p><strong>Parent : </strong><?php echo $pet['owner_name'];?></p>
                             <a class="action-btn" href="/pets/detailPets.php?id=<?=$pet['id'];?>">Connaitre ce pote</a>
                         </div>
                 <?php } ?>
