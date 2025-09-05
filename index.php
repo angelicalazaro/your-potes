@@ -8,7 +8,7 @@ $sql = "SELECT pets.*, users.username as owner_name, species.sp_name
         FROM pets 
         JOIN users ON pets.user_id = users.id
         LEFT JOIN species ON pets.species_id = species.id
-        ORDER BY pets.id ASC";
+        ORDER BY pets.id DESC";
 $resultPdoStatement = $pdo->query($sql, PDO::FETCH_ASSOC);
 $pets = $resultPdoStatement->fetchAll();
 ?>
